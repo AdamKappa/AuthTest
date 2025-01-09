@@ -1,14 +1,17 @@
 <?php 
+// session_start() should be called after including necessary class definitions
+require_once("../User.class.php");
 //initialize Session
 session_start();
+require_once("../configConnection.php");
+
 
 //check if the user is already logden in, if yes then redirect to landpage
 if( isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true){
-    header("Location: landpage.php");
+    header("Location: ../welcome/welcome.php");
     exit;
 }
 
-require_once("../configConnection.php");
 
 // define and initialize variables
 $username = "";
@@ -33,8 +36,27 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
     // Check the result
     if ($results->num_rows > 0) {
-        //suuccess logged in.. redirect to landpage... and check the user-type to display accordingly
-        $login_message = "User logged in";
+        //successful logged in.. 
+        //set important session variables..
+        $_SESSION['loggedin'] = true;
+    
+        while($row = $results->fetch_assoc()){
+            $loggedIn_userID = $row['id'];
+            $loggedIn_username =  $row['username'];
+            $loggedIn_user_access_level = $row['access_level'];
+
+            // echo $row['id'];
+            // echo $row['username'];
+            // echo $row['access_level'];
+        }
+
+        $loggedIn_user = new User($loggedIn_userID, $loggedIn_username, $loggedIn_user_access_level);
+        
+        $_SESSION['loggedIn_user'] = $loggedIn_user;
+       
+        //and redirect to landpage..  ..there check user's access_level to display greeting accordingly
+        header("Location: ../welcome/welcome.php");
+        exit;
     } else {
         $login_message = "User not logged in";
     }
