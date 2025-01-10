@@ -57,22 +57,25 @@ if(($_SERVER['REQUEST_METHOD'] === "POST") && ($_SESSION['loggedIn_user']->getAc
                 $stmt = $conn->prepare("UPDATE users SET username = ?, password = ? WHERE id = ?");
                 $stmt->bind_param("sss", $username, $password, $userId);
 
-                if (!$stmt->execute()) {
-                    $message = "Error updating user with ID $userId: " . $stmt->error;
+                if ($stmt->execute()) {
+                    // Check if any rows were updated
+                    if ($stmt->affected_rows > 0) {
+                        $message = "User with ID $userId updated successfully.";
+                    } else {
+                        $message = "No changes were made to your details.";
+                    }
                 } else {
-                    $message = "User with ID $userId updated successfully.";
+                    $message = "Error updating user with ID $userId: " . $stmt->error;
                 }
 
                 $stmt->close();
             }
+            else{
+                $message = "Select any row(s) to change the corresponding details.";
+            }
         }
     }
 }
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -160,5 +163,5 @@ if(($_SERVER['REQUEST_METHOD'] === "POST") && ($_SESSION['loggedIn_user']->getAc
     }
     ?>
     </div>
-    <div class="alert alert-info <?php echo (empty($message)) ? 'display-no' : ''; ?>"><?php echo $message; ?></div>
+    <div class="alert alert-info message <?php echo (empty($message)) ? 'display-no' : ''; ?>"><?php echo $message; ?></div>
 </body>
