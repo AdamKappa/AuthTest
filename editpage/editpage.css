@@ -1,0 +1,22 @@
+.wrapper{ width: 100%; padding: 20px; }
+.simple-container{
+    width: 360px;
+}
+
+.admin-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+   
+    
+}
+
+.admin-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.display-no{
+    display: none;
+}

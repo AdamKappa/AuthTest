@@ -12,7 +12,7 @@ $message = "";
 //if form submitted then proceed 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
 
-     //get username, password and repassword (and encode to base64) from form
+    //get username, password and repassword (and encode to base64) from form
     $username = trim($_POST['username']);
     $password = base64_encode(trim($_POST['password']));
     $repassword = base64_encode(trim($_POST['confirm_password']));
