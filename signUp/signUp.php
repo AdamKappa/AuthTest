@@ -51,9 +51,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     } else {
         $message = "Passwords do not match!";
     }
-
-
-
 }
 // close connection
 $conn->close();

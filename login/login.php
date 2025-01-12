@@ -6,13 +6,6 @@ session_start();
 require_once("../configConnection.php");
 
 
-//check if the user is already logden in, if yes then redirect to landpage
-if( isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true){
-    header("Location: ../welcome/welcome.php");
-    exit;
-}
-
-
 // define and initialize variables
 $username = "";
 $password = "";
@@ -44,10 +37,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             $loggedIn_userID = $row['id'];
             $loggedIn_username =  $row['username'];
             $loggedIn_user_access_level = $row['access_level'];
-
-            // echo $row['id'];
-            // echo $row['username'];
-            // echo $row['access_level'];
         }
 
         $loggedIn_user = new User($loggedIn_userID, $loggedIn_username, $loggedIn_user_access_level);
