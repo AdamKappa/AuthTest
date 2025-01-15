@@ -1,7 +1,14 @@
 <?php
-require_once("../User.class.php");
+require_once("../LoggedInUser.class.php");
 session_start();
 require_once("../configConnection.php");
+
+//check if the user is already logden in, 
+if ( !isset($_SESSION['loggedin']) && $_SESSION['loggedin'] !== true) {
+    // if not then redirect to login page
+    header("Location: ../login/login.php");
+    exit;
+}
 
 $id="";
 $username = "";

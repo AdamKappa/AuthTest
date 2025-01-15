@@ -1,0 +1,9 @@
+.exit-container, .welcome-container{
+    padding: 20px;
+}
+
+.exit-container{
+    display: flex;
+    flex-direction: row-reverse;
+    
+}

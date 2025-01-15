@@ -1,10 +1,14 @@
 <?php 
 // session_start() should be called after including necessary class definitions
-require_once("../User.class.php");
+require_once("../LoggedInUser.class.php");
 //initialize Session
 session_start();
 require_once("../configConnection.php");
 
+//if user just logged out print the corresponding message
+if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
+    echo "<p class='alert alert-success'>You have been logged out successfully.</p>";
+}
 
 // define and initialize variables
 $username = "";
@@ -39,7 +43,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             $loggedIn_user_access_level = $row['access_level'];
         }
 
-        $loggedIn_user = new User($loggedIn_userID, $loggedIn_username, $loggedIn_user_access_level);
+        $loggedIn_user = new LoggedInUser($loggedIn_userID, $loggedIn_username, $loggedIn_user_access_level);
         
         $_SESSION['loggedIn_user'] = $loggedIn_user;
        

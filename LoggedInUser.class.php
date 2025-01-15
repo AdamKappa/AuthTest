@@ -1,6 +1,6 @@
 <?php
 
-class User{
+class LoggedInUser{
     private $id;
     private $username;
     private $access_level;
