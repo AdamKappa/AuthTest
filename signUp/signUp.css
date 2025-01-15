@@ -6,3 +6,11 @@
 .display-no{
     display: none;
 }
+
+.match{
+    display: block;
+}
+
+.no-match{
+    display: block;
+}
